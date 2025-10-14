@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exódus® Web3 Wallet | Exódus® Browser Extension</title>
+  <meta name="description" content="Exódus® Web3 Wallet and Browser Extension empower users to explore DeFi, NFTs, and Web3 with privacy, speed, and full ownership of digital assets." />
+  <meta name="author" content="Exódus® Wallet" />
+  <meta name="robots" content="index, follow" />
+
+  <style>
+    :root {
+      --bg: #f7fafc;
+      --card: #ffffff;
+      --primary: #00897b;
+      --secondary: #00bfa5;
+      --accent: #ff7043;
+      --muted: #5f6368;
+      --radius: 14px;
+      --shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f0fdfa, #fff 80%);
+      color: #1a1a1a;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.9);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(0, 191, 165, 0.2);
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    .btn {
+      border: 0;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--secondary);
+      color: var(--primary);
+    }
+    .btn-outline:hover {
+      background: var(--secondary);
+      color: white;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      align-items: center;
+      gap: 32px;
+      margin-top: 40px;
+    }
+    .hero h2 {
+      font-size: 32px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .lead {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .hero-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .stat {
+      background: rgba(0,191,165,0.08);
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* FEATURES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 40px;
+    }
+    .feature {
+      background: var(--card);
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease;
+    }
+    .feature:hover { transform: translateY(-4px); }
+    .feature h4 {
+      margin: 0 0 8px;
+      color: var(--accent);
+    }
+    .feature p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* ACCORDION */
+    .accordion {
+      margin-top: 50px;
+    }
+    .accordion h3 {
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+    .acc-item {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .acc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      cursor: pointer;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease, padding 0.25s ease;
+      padding: 0 16px;
+    }
+    .acc-body.open {
+      padding: 14px 16px;
+    }
+    .acc-body p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      color: #fff;
+      padding: 30px 0;
+      margin-top: 60px;
+    }
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .features { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width: 640px) {
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">
+        <div class="logo">EX</div>
+        <h1>Exódus® Web3 Wallet | Exódus® Browser Extension</h1>
+      </a>
+      <div>
+        <a href="#features" class="btn btn-outline">Features</a>
+        <button class="btn btn-primary" onclick="ctaAction()">Get Extension</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <h2>One Wallet for Web3 & Beyond</h2>
+        <p class="lead">Manage your crypto, NFTs, and DeFi activity effortlessly with Exódus® — now available as a secure browser extension and desktop wallet.</p>
+        <button class="btn btn-primary" onclick="ctaAction()">Install Extension</button>
+        <div class="stats">
+          <div class="stat">Cross-chain Support</div>
+          <div class="stat">Built-in NFT Viewer</div>
+          <div class="stat">Private & Secure</div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <strong>Browser Extension Highlights</strong>
+        <p style="color: var(--muted); font-size:14px; margin-top:6px;">
+          The Exódus® Browser Extension brings your wallet to any dApp with one click. Enjoy instant access, on-device key storage, and seamless transaction approvals.
+        </p>
+      </aside>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="features">
+      <div class="feature">
+        <h4>Unified Experience</h4>
+        <p>Sync your wallet across desktop and browser with one recovery phrase. No extra logins or data leaks.</p>
+      </div>
+      <div class="feature">
+        <h4>Instant Web3 Access</h4>
+        <p>Interact with dApps, DeFi, and NFTs directly in your browser — no bridges or extra plugins needed.</p>
+      </div>
+      <div class="feature">
+        <h4>Hardware Integration</h4>
+        <p>Connect your hardware wallets for extra security without compromising speed or usability.</p>
+      </div>
+    </section>
+
+    <!-- ACCORDION -->
+    <section class="accordion">
+      <h3>FAQs</h3>
+
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span>Is Exódus® Web3 Wallet non-custodial?</span>
+          <span>+</span>
+        </div>
+        <div class="acc-body">
+          <p>Yes, completely. Only you hold your private keys — they are encrypted and stored locally on your device.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span>Does the Browser Extension work on all browsers?</span>
+          <span>+</span>
+        </div>
+        <div class="acc-body">
+          <p>It’s supported on Chrome, Brave, Edge, and other Chromium-based browsers, with Firefox support in development.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span>Can I connect to DeFi platforms directly?</span>
+          <span>+</span>
+        </div>
+        <div class="acc-body">
+          <p>Absolutely. Use Exódus® Browser Extension to connect directly to major DeFi platforms and NFT marketplaces with one click.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <strong>Exódus® Web3 Wallet</strong><br />
+        <small>© <span id="year"></span> Exódus Technologies — All rights reserved.</small>
+      </div>
+      <div>
+        <a href="#features">Features</a> |
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function toggleAcc(el) {
+      const body = el.nextElementSibling;
+      const open = body.classList.contains('open');
+      document.querySelectorAll('.acc-body').forEach(b => {
+        b.style.maxHeight = null;
+        b.classList.remove('open');
+        b.previousElementSibling.querySelector('span:last-child').textContent = '+';
+      });
+      if (!open) {
+        body.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+        el.querySelector('span:last-child').textContent = '–';
+      }
+    }
+
+    function ctaAction() {
+      const toast = document.createElement('div');
+      toast.textContent = "Installing Exódus® Browser Extension...";
+      toast.style.position = "fixed";
+      toast.style.bottom = "20px";
+      toast.style.right = "20px";
+      toast.style.background = "linear-gradient(90deg, var(--primary), var(--accent))";
+      toast.style.color = "#fff";
+      toast.style.padding = "12px 14px";
+      toast.style.borderRadius = "10px";
+      toast.style.boxShadow = "0 6px 18px rgba(0,0,0,0.2)";
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+  </script>
+</body>
+</html>
